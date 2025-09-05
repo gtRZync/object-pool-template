@@ -111,6 +111,17 @@ This will compile the project using `g++` with C++17. You can customize the `Mak
 
 ---
 
+## Dependencies
+
+- C++17 or newer
+- [SFML](https://www.sfml-dev.org/) (installed via MSYS2 recommended)
+
+On MSYS2 (64-bit MinGW):
+```bash
+pacman -S mingw-w64-x86_64-sfml
+
+---
+
 ## To-Do / Learning Goals
 
 * [ ] Add support for custom object initialization
