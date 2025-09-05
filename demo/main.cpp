@@ -83,7 +83,7 @@ int main(void)
         std::exit(-1);
     }
     sf::Clock clock;
-    ObjectPool<Bullet> bulletPool{20};
+    ObjectPool<Bullet> bulletPool{100};
     std::vector<std::unique_ptr<Bullet>> activeBullets;
     sf::Text count;
     count.setFont(font);
@@ -95,9 +95,22 @@ int main(void)
     {
         sf::Event event;
         float deltaTime = clock.restart().asSeconds();
-        float FPS = 1.f / deltaTime;
-        sf::String Title = title + std::to_string(static_cast<int>(FPS));
-        window.setTitle(Title);
+
+        static float fps = 0.f;
+        static float elapsed = 0.f;
+        static int frames = 0;
+
+        frames++;
+        elapsed += deltaTime;
+
+        if (elapsed >= 1.f) {
+            fps = frames / elapsed; 
+            frames = 0;
+            elapsed = 0.f;
+
+            window.setTitle(title + std::to_string(static_cast<int>(fps)));
+        }
+
         while (window.pollEvent(event)) 
         {   
             if(event.type == sf::Event::Closed) {
