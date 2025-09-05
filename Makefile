@@ -3,7 +3,7 @@
 CXX= g++
 CXXFLAGS= -Wall -std=c++17 -Iinclude
 
-LIBS= -lsfml-graphics -lsfml-window -lsfml-system
+SFML_LIBS= -lsfml-graphics -lsfml-window -lsfml-system
 
 ifeq ($(OS), Windows_NT)
     EXE := .exe
@@ -23,15 +23,15 @@ endif
 
 TARGET = bin/main$(EXE)
 
-SRCS= $(wildcard src/*.cpp)
-OBJS= $(patsubst src/%.cpp, build/%.o, $(SRCS))
+SRCS= $(wildcard demo/*.cpp)
+OBJS= $(patsubst demo/%.cpp, build/%.o, $(SRCS))
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS) | bin
-	@$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LIBS) 
+	@$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(SFML_LIBS) 
 
-build/%.o: src/%.cpp | build
+build/%.o: demo/%.cpp | build
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 bin:
