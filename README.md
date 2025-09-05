@@ -35,7 +35,7 @@ for (auto& obj : pool.getAllObjects()) {
 ## Example Usage
 
 ```cpp
-#include "ObjectPool.h"
+#include "ObjectPool.hpp"
 #include <iostream>
 #include <string>
 
