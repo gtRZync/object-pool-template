@@ -119,7 +119,7 @@ This will compile the project using `g++` with C++17. You can customize the `Mak
 On MSYS2 (64-bit MinGW):
 ```bash
 pacman -S mingw-w64-x86_64-sfml
-
+```
 ---
 
 ## To-Do / Learning Goals
