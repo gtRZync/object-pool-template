@@ -113,7 +113,9 @@ This will compile the project using `g++` with C++17. You can customize the `Mak
 
 ## Dependencies
 
-- C++17 or newer
+The core object pool (`include/ObjectPool.hpp`) is **header-only** and has **no external dependencies**.  
+
+The demo (`demo/` folder) requires 
 - [SFML](https://www.sfml-dev.org/) (installed via MSYS2 recommended)
 
 On MSYS2 (64-bit MinGW):
