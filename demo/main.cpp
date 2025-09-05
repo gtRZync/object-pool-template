@@ -78,7 +78,7 @@ int main(void)
     window.setFramerateLimit(60);
     bool debug = false;
     sf::Font font;
-    if(!font.loadFromFile("../Baseball Club Solid.otf")) {
+    if(!font.loadFromFile("demo/assets/Baseball Club Solid.otf")) {
         std::cerr << "Error couldn't load font.\n";
         std::exit(-1);
     }
@@ -88,6 +88,8 @@ int main(void)
     sf::Text count;
     count.setFont(font);
     count.setCharacterSize(20);
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
 
     while (window.isOpen())
     {
@@ -96,7 +98,6 @@ int main(void)
         float FPS = 1.f / deltaTime;
         sf::String Title = title + std::to_string(static_cast<int>(FPS));
         window.setTitle(Title);
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));
         while (window.pollEvent(event)) 
         {   
             if(event.type == sf::Event::Closed) {
