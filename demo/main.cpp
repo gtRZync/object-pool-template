@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Bullet.hpp"
-#include "ObjectPool.hpp"
+#include "../include/ObjectPool.hpp"
 
 static void centerTextHorizontal(const sf::RectangleShape& panel, sf::Text& text, float posY) {
     sf::FloatRect bounds = text.getLocalBounds();
