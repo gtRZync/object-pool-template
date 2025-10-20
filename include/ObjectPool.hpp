@@ -10,12 +10,11 @@ class ObjectPool
         std::vector<std::unique_ptr<Object>> pool;
         static constexpr int DEFAULT_POOL_SIZE = 10;
     public:
-        explicit ObjectPool(std::size_t size){
+        explicit ObjectPool(std::size_t size = DEFAULT_POOL_SIZE){
             for(std::size_t i = 0 ; i < size ; i++) {
                 pool.push_back(std::make_unique<Object>());
             }
         }
-        ObjectPool() : ObjectPool(DEFAULT_POOL_SIZE) {}
 
         ~ObjectPool() {}
     public:

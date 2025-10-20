@@ -25,10 +25,11 @@ static void contentSetup(sf::RectangleShape& rect, sf::Text& text, const sf::Str
 }
 
 template<typename T>
-static void showDebug(sf::Vector2u winSize, sf::RenderWindow& window, const sf::Font& font, const std::vector<T>& v) {
+static void showDebug(sf::RenderWindow& window, const sf::Font& font, const std::vector<T>& v) {
     sf::RectangleShape panel;
     sf::RectangleShape content;
     sf::Text contentText;
+    sf::Vector2u winSize = window.getSize();
 
     contentText.setCharacterSize(18);
     contentText.setFont(font);
@@ -146,7 +147,7 @@ int main(void)
         count.setPosition(window.getSize().x - 250, 10);//! can do better but meeeh
     
         window.clear(sf::Color(30, 144, 255));
-        if(debug)showDebug(window.getSize(), window, font, activeBullets);
+        if(debug)showDebug(window, font, activeBullets);
         window.draw(count);
         for(auto it = activeBullets.begin(); it != activeBullets.end();) {
             auto& bullet = *it;
