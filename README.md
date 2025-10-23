@@ -22,7 +22,7 @@ Built as a learning project to understand memory management and object reuse pat
 
 - Efficiently reuse objects without constant memory allocation/deallocation.
 - Great for games, simulations, or any system where object reuse improves performance.
-- Uses `std::vector<Object>` internally, giving:
+- Uses `std::vector<std::unique_ptr<Object>>` internally, giving:
   - **Stack behavior** for quick acquire/release (`push_back`, `pop_back`, `back`)
   - **Easy iteration** with range-based for loops.
 
@@ -31,10 +31,10 @@ Built as a learning project to understand memory management and object reuse pat
 ## Features
 
 - Written as a C++ template: `ObjectPool<Object>`
-- Stores inactive objects in a `std::vector<Object>` stack
+- Stores inactive objects in a `std::vector<std::unique_ptr<Object>>` stack
 - `acquire()` gives you a reusable object
-- `release(obj)` returns the object to the pool
-- Works with any movable object type (copyable optional). For std::unique_ptr<T>, you must use std::move() when transferring ownership.
+- `release(std::move(obj))` returns the object to the pool
+- Works with any movable object type (copyable optional). For std::unique_ptr<T>, you must use `std::move()` when transferring ownership.
 
 ---
 
@@ -81,13 +81,13 @@ int main() {
 Internally, the pool uses:
 
 ```cpp
-std::vector<Object> pool;
+std::vector<std::unique_ptr<Object>> pool;
 ```
 
 It works like a **stack**:
 
 - `acquire()` → gets from `back()` and `pop_back()`
-- `release(obj)` → adds back using `push_back(obj)`
+- `release(std::move(obj))` → adds back using `push_back(std::move(obj))`
 
 If the pool is empty, `acquire()` just creates a new object.
 
@@ -95,7 +95,7 @@ If the pool is empty, `acquire()` just creates a new object.
 
 ## Build Instructions
 
-A **Makefile** is included to simplify compiling the project.
+A **Makefile** is included to simplify compiling the project(demo).
 
 - ✅ Works on **Unix/Linux/macOS**
 - ✅ Compatible with **Windows (NT)** using environments like:
