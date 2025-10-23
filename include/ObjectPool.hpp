@@ -26,7 +26,7 @@ class ObjectPool
             return std::make_unique<Object>();
         }
 
-        void release(std::unique_ptr<Object> obj) {
+        void release(std::unique_ptr<Object>&& obj) {
             obj->reset(); //! can be removed if the object does not contain a reset method
             pool.push_back(std::move(obj));
         }
