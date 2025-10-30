@@ -34,18 +34,15 @@ static void showDebug(sf::RenderWindow& window, const sf::Font& font, const std:
     contentText.setCharacterSize(18);
     contentText.setFont(font);
 
-    // Panel styling
     panel.setFillColor(sf::Color(20, 20, 20, 200));
     sf::Vector2f size{static_cast<float>(winSize.x / 2.5f), static_cast<float>(winSize.y)};
     panel.setSize(size);
     panel.setPosition(15.f, 15.f);
 
-    // Title
     sf::Text Title(L"DEBUG PANEL", font, 28);
     Title.setFillColor(sf::Color(0, 200, 200));
     centerTextHorizontal(panel, Title, 20.f);
 
-    // Subheading: Active Bullet Count
     std::wstring bulletCountStr = L"Active Bullets: " + std::to_wstring(v.size());
     sf::Text subTitle(bulletCountStr, font, 20);
     subTitle.setFillColor(sf::Color(200, 200, 200));
@@ -54,7 +51,6 @@ static void showDebug(sf::RenderWindow& window, const sf::Font& font, const std:
     // Content box size
     content.setSize(sf::Vector2f(size.x - 30.f, 28.f));
 
-    // Draw panel & headings
     window.draw(panel);
     window.draw(Title);
     window.draw(subTitle);
