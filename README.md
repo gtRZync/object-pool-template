@@ -38,7 +38,9 @@ Built as a learning project to understand memory management and object reuse pat
 
 ---
 
-## Example Usage (Single Object)
+## Example Usage
+
+### 🚫 Without `Args`
 
 ```cpp
 #include "ObjectPool.hpp"
@@ -74,6 +76,73 @@ int main() {
     return 0;
 }
 ```
+
+### ✅ With `Args`
+
+```cpp
+#include "ObjectPool.hpp"
+#include <iostream>
+#include <sstream>
+
+#define LOG(x) std::cout << x << "\n"
+
+class Enemy {
+private:
+    float m_health;
+    float m_shield;
+    std::string m_ability;
+    float m_speed;          
+    int m_level;           
+    std::string m_name;   
+
+public:
+    Enemy(float health, float shield, const std::string& ability, float speed = 1.0f, int level = 1, const std::string& name = "Enemy")
+        : m_health(health), m_shield(shield), m_ability(ability), m_speed(speed), m_level(level), m_name(name) {}
+    ~Enemy() {}
+
+    void attack() {
+        std::cout << m_name << " attacks with " << m_ability << " (Level " << m_level << ")\n";
+    }
+
+    void reset(float health = 100.0f, float shield = 50.0f, const std::string& ability = "Basic Attack", float speed = 1.0f, int level = 1, const std::string& name = "Enemy") {
+        m_health = health;
+        m_shield = shield;
+        m_ability = ability;
+        m_speed = speed;
+        m_level = level;
+        m_name = name;
+        LOG(m_name << " has been reset.");
+    }
+
+    std::string toJSON() const {
+        std::ostringstream oss;
+        oss << "{\n"
+            << "\t\"name\":\"" << m_name << "\",\n"
+            << "\t\"health\":" << m_health << ",\n"
+            << "\t\"shield\":" << m_shield << ",\n"
+            << "\t\"ability\":\"" << m_ability << "\",\n"
+            << "\t\"speed\":" << m_speed << ",\n"
+            << "\t\"level\":" << m_level << "\n"
+            << "}";
+        return oss.str();
+    }
+};
+
+int main() {
+
+    ObjectPool<Enemy, float, float, const std::string&> enemyPool(10, 100.f, 50.f, "Fire Punch");
+
+    auto enemy = enemyPool.acquire();
+
+    enemy->attack();
+
+    LOG(enemy->toJSON());
+
+    enemyPool.release(std::move(enemy));
+
+    return 0;
+}
+```
 ---
 
 ## How It Works
@@ -97,8 +166,8 @@ If the pool is empty, `acquire()` just creates a new object.
 
 A **Makefile** is included to simplify compiling the project(demo).
 
-- ✅ Works on **Unix/Linux/macOS**
-- ✅ Compatible with **Windows (NT)** using environments like:
+- [x] Works on **Unix/Linux/macOS**
+- [x] Compatible with **Windows (NT)** using environments like:
   - [MinGW](https://www.mingw-w64.org/)
   - [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/)
   - [Git Bash](https://gitforwindows.org/)
