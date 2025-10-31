@@ -145,20 +145,20 @@ int main() {
 ```
 ---
 
-## How It Works
+## Object Pool Internals
 
-Internally, the pool uses:
+The pool is implemented as:
 
 ```cpp
 std::vector<std::unique_ptr<Object>> pool;
 ```
 
-It works like a **stack**:
+Objects are managed in a **stack-like** manner:
 
-- `acquire()` → gets from `back()` and `pop_back()`
-- `release(std::move(obj))` → adds back using `push_back(std::move(obj))`
+* `acquire()` retrieves the object at `back()` and removes it from the pool (`pop_back()`).
+* `release(std::move(obj))` returns an object to the pool using `push_back(std::move(obj))`.
 
-If the pool is empty, `acquire()` just creates a new object.
+When the pool is empty, `acquire()` will **construct a new object**. If the pool was initialized with constructor arguments, these are **perfectly forwarded** using `std::forward`; otherwise, objects are **default-constructed**.
 
 ---
 
