@@ -4,10 +4,14 @@
 class Bullet : public sf::Drawable {
     private:
         sf::CircleShape bullet;
-        float speed = 1300.f;
-        bool active;
+        sf::Sprite      sprite;
+        float           speed       = 1300.f;
+        bool            active;
+        bool            useSprite   = false;
     public:
-        Bullet(float x, float y);
+        explicit Bullet(float x, float y);
+
+        explicit Bullet(const sf::Texture& texture);
 
         Bullet() : Bullet(0.f, 0.f) {}
         
