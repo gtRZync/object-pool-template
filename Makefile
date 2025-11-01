@@ -5,6 +5,13 @@ CXXFLAGS= -Wall -std=c++17 -Iinclude
 
 SFML_LIBS= -lsfml-graphics -lsfml-window -lsfml-system
 
+VERBOSE ?= 0
+ifeq ($(VERBOSE), 1)
+    Q = 
+else
+    Q = @
+endif
+
 ifeq ($(OS), Windows_NT)
     EXE := .exe
     RM := cmd /C del /Q /F
@@ -29,20 +36,20 @@ OBJS= $(patsubst demo/%.cpp, build/%.o, $(SRCS))
 all: $(TARGET)
 
 $(TARGET): $(OBJS) | bin
-	@$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(SFML_LIBS) 
+	$(Q)$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(SFML_LIBS) 
 
 build/%.o: demo/%.cpp | build
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(Q)$(CXX) $(CXXFLAGS) -c $< -o $@
 
 bin:
-	@$(BIN_FOLDER)
+	$(Q)$(BIN_FOLDER)
 
 build:
-	@$(BUILD_FOLDER)
+	$(Q)$(BUILD_FOLDER)
 
 clean:
-	@echo "Cleaning..."
-	@$(CLEAN)
+	$(Q)echo "Cleaning..."
+	$(Q)$(CLEAN)
 
 run: $(TARGET)
-	@$(RUN_CMD)
+	$(Q)$(RUN_CMD)
