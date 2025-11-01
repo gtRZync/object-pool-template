@@ -48,7 +48,6 @@ static void showDebug(sf::RenderWindow& window, const sf::Font& font, const std:
     subTitle.setFillColor(sf::Color(200, 200, 200));
     centerTextHorizontal(panel, subTitle, Title.getPosition().y + Title.getCharacterSize() + 5.f);
 
-    // Content box size
     content.setSize(sf::Vector2f(size.x - 30.f, 28.f));
 
     window.draw(panel);
@@ -79,8 +78,12 @@ int main(void)
         std::cerr << "Error couldn't load font.\n";
         std::exit(-1);
     }
+    sf::Texture texture;
+    if (!texture.loadFromFile("demo/assets/RedEnergyBall.png", sf::IntRect(0, 0, 19, 32))) {
+        throw std::runtime_error("Failed to load texture: RedEnergyBall.png");
+    }
     sf::Clock clock;
-    ObjectPool<Bullet> bulletPool{100};
+    ObjectPool<Bullet, sf::Texture&, double> bulletPool{100, texture, 1.5};
     std::vector<std::unique_ptr<Bullet>> activeBullets;
     sf::Text count;
     count.setFont(font);
