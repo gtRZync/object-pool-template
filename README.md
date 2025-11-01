@@ -7,11 +7,11 @@ Built as a learning project to understand memory management and object reuse pat
 
 ---
 
-## Quick Preview
+## Quick Preview: Pool Active (objects being reused)  
 
-| Pool Idle (showing baseline count)         | Pool Active (objects being reused)     |
+| Created without arguments                  | Created with arguments                 |
 |--------------------------------------------|----------------------------------------|
-| ![Idle Pool](demo/screenshots/idle_pool.png)| ![Active Pool](demo/screenshots/active_pool.gif)|
+| ![Idle Pool](demo/screenshots/active_pool_no_args.gif)| ![Active Pool](demo/screenshots/active_pool_with_args.gif)|
 
 ---
 *Example: Pool managing 100 objects in a simple SFML demo.*
