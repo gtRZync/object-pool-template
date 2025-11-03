@@ -83,7 +83,7 @@ int main(void)
         throw std::runtime_error("Failed to load texture: RedEnergyBall.png");
     }
     sf::Clock clock;
-    ObjectPool<Bullet, sf::Texture&, double> bulletPool{100, texture, 1.5};
+    ObjectPool<Bullet, const sf::Texture&, double> bulletPool{100, texture, 1.5};
     std::vector<std::unique_ptr<Bullet>> activeBullets;
     sf::Text count;
     count.setFont(font);
