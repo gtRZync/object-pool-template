@@ -79,7 +79,7 @@ int main(void)
         std::exit(-1);
     }
     sf::Texture texture;
-    if (!texture.loadFromFile("demo/assets/RedEnergyBall.png", sf::IntRect(0, 0, 19, 32))) {
+    if (!texture.loadFromFile("demo/assets/RedEnergyBall.png")) {
         throw std::runtime_error("Failed to load texture: RedEnergyBall.png");
     }
     sf::Clock clock;
