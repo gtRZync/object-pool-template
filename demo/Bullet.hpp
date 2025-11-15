@@ -1,13 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Animation.hpp"
+#include <functional>
+#include <optional>
 
 class Bullet : public sf::Drawable {
     private:
         sf::CircleShape bullet;
-        sf::Sprite      sprite;
-        float           speed       = 1300.f;
-        bool            active;
         bool            useSprite;
+        Animation       animation;
+        float           speed       = 900.f;
+        bool            active;
+        std::optional<std::reference_wrapper<sf::Sprite>>      sprite_ref;
     public:
         explicit Bullet(const sf::Texture& texture, double scale = 1.0);
 
@@ -17,7 +21,7 @@ class Bullet : public sf::Drawable {
     public:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
             if(useSprite) {
-                target.draw(sprite, states);
+                target.draw(sprite_ref.value().get(), states);
             } else {
                 target.draw(bullet, states);
             }
@@ -31,4 +35,8 @@ class Bullet : public sf::Drawable {
         void setPosition(int x, int y);
 
         bool isActive() const;
+
+        sf::Sprite& sprite() {
+           return  sprite_ref.value().get();
+        }
 };
