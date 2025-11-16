@@ -2,8 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.hpp"
 
-#define LOG(x) std::cout<< x << "\n"
-
 Animation::Animation(const sf::Texture& texture, int frameCount, int currentFrame) : 
 currentFrame(currentFrame), frameCount(frameCount){ 
         startingFrame = currentFrame; 

@@ -3,6 +3,7 @@
 #include "Animation.hpp"
 #include <functional>
 #include <optional>
+#include <cassert>
 
 class Bullet : public sf::Drawable {
     private:
@@ -37,6 +38,7 @@ class Bullet : public sf::Drawable {
         bool isActive() const;
 
         sf::Sprite& sprite() {
-           return  sprite_ref.value().get();
+            assert(sprite_ref.has_value());
+           return  (*sprite_ref).get();
         }
 };
