@@ -201,6 +201,7 @@ pacman -S mingw-w64-x86_64-sfml
 ## To-Do / Learning Goals
 
 - [x] Add support for custom object initialization
+- [ ] Add support for custom object reset 
 - [ ] Add thread-safety (maybe with mutex?)
 - [ ] Benchmark vs. dynamic allocation
 - [ ] Write unit tests
